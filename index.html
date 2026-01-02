@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>PetCare | Premium Pet Health Dashboard</title>
+
+    <!-- Bootstrap CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Poppins:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <style>
+        :root {
+            --primary-gradient: linear-gradient(135deg, #00f2fe 0%, #4facfe 100%);
+            --dark-bg: #06090c;
+            --card-bg: #111822;
+            /* Lighter shade for visibility */
+            --accent-color: #00f2fe;
+            --text-muted: #e2e8f0;
+            /* Extra light for maximum contrast */
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--dark-bg);
+            color: #ffffff;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6,
+        .navbar-brand {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+        }
+
+        /* Glassmorphism Navbar */
+        .navbar {
+            background: rgba(0, 21, 41, 0.8) !important;
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 15px 0;
+            transition: 0.3s;
+        }
+
+        .navbar-brand {
+            font-size: 24px;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 1px;
+        }
+
+        .nav-link {
+            font-weight: 500;
+            color: #fff !important;
+            margin: 0 10px;
+            transition: 0.3s;
+        }
+
+        .nav-link:hover {
+            color: var(--accent-color) !important;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(0, 21, 41, 0.7), rgba(0, 21, 41, 0.7)),
+                url('images/heroImage.png') center/cover;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3.1rem;
+            margin-bottom: 20px;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .btn-premium {
+            background: var(--primary-gradient);
+            color: white;
+            border: none;
+            padding: 14px 40px;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 20px rgba(0, 242, 254, 0.2);
+        }
+
+        .btn-premium:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(0, 242, 254, 0.4);
+            color: white;
+        }
+
+        /* Section Styling */
+        section {
+            padding: 100px 0;
+        }
+
+        .section-title h2 {
+            font-size: 36px;
+            margin-bottom: 50px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 4px;
+            background: var(--primary-gradient);
+            border-radius: 2px;
+        }
+
+        /* Feature Cards */
+        .feature-card {
+            background: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 40px;
+            transition: all 0.3s ease;
+            height: 100%;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent-color);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .feature-icon {
+            font-size: 40px;
+            margin-bottom: 25px;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Service Cards */
+        .service-card {
+            border-radius: 20px;
+            overflow: hidden;
+            background: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: 0.3s;
+        }
+
+        .service-card h5,
+        .feature-card h4 {
+            color: var(--accent-color);
+            margin-bottom: 15px;
+        }
+
+        .service-card img {
+            height: 220px;
+            object-fit: cover;
+            transition: 0.5s;
+        }
+
+        .service-card:hover img {
+            transform: scale(1.1);
+        }
+
+        /* Stats Bar */
+        .stats-bar {
+            background: var(--card-bg);
+            padding: 40px 0;
+            border-radius: 20px;
+            margin-top: -60px;
+            position: relative;
+            z-index: 10;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Timeline Table */
+        .custom-table {
+            background: var(--card-bg);
+            border-radius: 20px;
+            overflow: hidden;
+            border: none;
+        }
+
+        .custom-table thead {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .custom-table th,
+        .custom-table td {
+            padding: 20px;
+            border-color: rgba(255, 255, 255, 0.05);
+            color: #fff;
+        }
+
+        .status-due {
+            color: #ff6b6b;
+            /* Brighter red */
+            background: rgba(255, 107, 107, 0.15);
+            padding: 6px 16px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 600;
+            border: 1px solid rgba(255, 107, 107, 0.2);
+        }
+
+        /* Contact Form */
+        .form-control {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #fff;
+            padding: 15px;
+            border-radius: 10px;
+        }
+
+        .form-control:focus {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: var(--accent-color);
+            box-shadow: none;
+            color: #fff;
+        }
+
+        .form-control::placeholder {
+            color: rgba(255, 255, 255, 0.6) !important;
+            /* Brightened from default */
+        }
+
+        .form-label.text-muted {
+            color: var(--text-muted) !important;
+            /* Using our lightened muted variable */
+        }
+
+        footer {
+            background: #000d1a;
+            padding: 80px 0 30px;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.05);
+            color: white;
+            margin-right: 10px;
+            transition: 0.3s;
+            text-decoration: none;
+        }
+
+        .social-links a:hover {
+            background: var(--primary-gradient);
+            transform: translateY(-3px);
+        }
+
+        /* Visibility Overrides */
+        .text-white-50 {
+            color: rgba(255, 255, 255, 0.85) !important;
+        }
+
+        p,
+        small {
+            letter-spacing: 0.3px;
+        }
+
+        .text-accent {
+            color: var(--accent-color) !important;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="#">
+                <i class="fas fa-paw me-2"></i> PetCare
+            </a>
+            <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#menu">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="menu">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#home">Home</a></li>
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#features">Features</a></li>
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#services">Services</a></li>
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#schedule">Schedule</a></li>
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#con">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script type="text/javascript">
+        $('.js-scroll-trigger').click(function () {
+            $('.navbar-collapse').collapse('hide');
+        });
+    </script>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-8 mx-auto">
+                    <h1 class="display-3 fw-bold">Your Pet's Health, <br><span class="text-white">Redefined.</span></h1>
+                    <p class="lead mb-4 text-white-50">Intelligent health tracking and vaccination reminders for your
+                        beloved companions. Because every wag and purr matters.</p>
+                    <div class="d-flex justify-content-center gap-3">
+                        <button class="btn btn-premium">Get Started Now</button>
+                        <button class="btn btn-outline-light px-4 py-2 rounded-pill">Watch Demo</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Bar -->
+    <div class="container">
+        <div class="stats-bar text-center">
+            <div class="row">
+                <div class="col-md-4 mb-3 mb-md-0">
+                    <h2 class="fw-bold mb-0">5,000+</h2>
+                    <small class="text-muted text-uppercase tracking-wider">Pets Protected</small>
+                </div>
+                <div class="col-md-4 mb-3 mb-md-0">
+                    <h2 class="fw-bold mb-0">20k+</h2>
+                    <small class="text-muted text-uppercase tracking-wider">Reminders Sent</small>
+                </div>
+                <div class="col-md-4">
+                    <h2 class="fw-bold mb-0">200+</h2>
+                    <small class="text-muted text-uppercase tracking-wider">Vet Clinics</small>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- How it Works -->
+    <section id="how-it-works">
+        <div class="container text-center">
+            <div class="section-title">
+                <h2>How It <span class="text-white">Works</span></h2>
+            </div>
+            <div class="row g-4 mt-4">
+                <div class="col-md-4">
+                    <div class="p-4">
+                        <div class="feature-icon"><i class="fas fa-user-plus"></i></div>
+                        <h4>1. Register</h4>
+                        <p class="text-white-50">Create your free account in seconds and join our community of pet
+                            lovers.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="p-4">
+                        <div class="feature-icon"><i class="fas fa-dog"></i></div>
+                        <h4>2. Add Pets</h4>
+                        <p class="text-white-50">Input your pet's basic info and their current vaccination history.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="p-4">
+                        <div class="feature-icon"><i class="fas fa-bell"></i></div>
+                        <h4>3. Get Alerts</h4>
+                        <p class="text-white-50">Relax while we send you timely multi-channel reminders before every due
+                            date.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section id="features" style="background: rgba(255,255,255,0.02);">
+        <div class="container">
+            <div class="section-title text-center">
+                <h2>Core <span class="text-white">Features</span></h2>
+            </div>
+            <div class="row g-4 mt-4">
+                <div class="col-md-4">
+                    <div class="feature-card text-center">
+                        <i class="fas fa-file-medical feature-icon"></i>
+                        <h4>Easy Records</h4>
+                        <p class="text-white-50">Cloud-based storage for all your pet's medical documents and history,
+                            accessible anywhere.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="feature-card text-center">
+                        <i class="fas fa-clock feature-icon"></i>
+                        <h4>Due Alerts</h4>
+                        <p class="text-white-50">Never miss a shot with smart notifications via SMS, Email, and Push
+                            notifications.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="feature-card text-center">
+                        <i class="fas fa-users-cog feature-icon"></i>
+                        <h4>Multi Pets</h4>
+                        <p class="text-white-50">Manage vaccination schedules for your whole furry family from a single
+                            dashboard.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- Services Section -->
+    <section id="services">
+        <div class="container">
+            <div class="section-title text-center">
+                <h2>Premium <span class="text-white">Services</span></h2>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-3">
+                    <div class="card service-card h-100">
+                        <img src="images/photo-1583337130417-3346a1be7dee.avif"
+                            class="card-img-top" alt="Dog Vaccination">
+                        <div class="card-body">
+                            <h5 class="fw-bold">Dog Vaccination</h5>
+                            <p class="text-white-50 small">Professional vaccination protocols tailored to your dog's
+                                breed and lifestyle.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card service-card h-100">
+                        <img src="images/photo-1514888286974-6c03e2ca1dba.avif"
+                            class="card-img-top" alt="Cat Vaccination">
+                        <div class="card-body">
+                            <h5 class="fw-bold">Cat Vaccination</h5>
+                            <p class="text-white-50 small">Essential protection for indoor and outdoor cats against
+                                common feline diseases.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card service-card h-100">
+                        <img src="images/photo-1535268647677-300dbf3d78d1.avif"
+                            class="card-img-top" alt="Health Checkups">
+                        <div class="card-body">
+                            <h5 class="fw-bold">Health Checkups</h5>
+                            <p class="text-white-50 small">Regular wellness examinations to detect health issues before
+                                they become serious.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card service-card h-100">
+                        <img src="images/photo-1620821620529-9da72072847c.avif"
+                            class="card-img-top" alt="Vaccination Records">
+                        <div class="card-body">
+                            <h5 class="fw-bold">Digital Records</h5>
+                            <p class="text-white-50 small">Secure, digital access to your pet's entire medical history
+                                at your fingertips.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Smart Health Alerts Section (Replaces Schedule Table) -->
+    <section id="schedule"
+        style="background: rgba(0, 242, 254, 0.03); border-top: 1px solid rgba(255,255,255,0.05); border-bottom: 1px solid rgba(255,255,255,0.05);">
+        <div class="container">
+            <div class="section-title text-center">
+                <h2>Health <span class="text-white">Alerts</span></h2>
+                <p class="text-white-50 mt-2">Active reminders for your pet's wellness</p>
+            </div>
+            <div class="row g-4 justify-content-center mt-5">
+                <div class="col-lg-5">
+                    <div class="feature-card d-flex align-items-center p-4">
+                        <div class="flex-shrink-0">
+                            <div class="rounded-3"
+                                style="width: 80px; height: 80px; background: var(--primary-gradient); display: flex; align-items: center; justify-content: center; font-size: 24px;">
+                                <i class="fas fa-dog text-white"></i>
+                            </div>
+                        </div>
+                        <div class="ms-4 flex-grow-1">
+                            <div class="d-flex justify-content-between align-items-start">
+                                <div>
+                                    <h5 class="mb-1">Buddy</h5>
+                                    <p class="text-accent small mb-2 fw-bold">Rabies Vaccine</p>
+                                </div>
+                                <span class="status-due">In 14 Days</span>
+                            </div>
+                            <div class="d-flex align-items-center text-white-50 small">
+                                <i class="far fa-calendar-alt me-2"></i> Jan 15, 2025
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-5">
+                    <div class="feature-card d-flex align-items-center p-4">
+                        <div class="flex-shrink-0">
+                            <div class="rounded-3"
+                                style="width: 80px; height: 80px; background: var(--primary-gradient); display: flex; align-items: center; justify-content: center; font-size: 24px;">
+                                <i class="fas fa-cat text-white"></i>
+                            </div>
+                        </div>
+                        <div class="ms-4 flex-grow-1">
+                            <div class="d-flex justify-content-between align-items-start">
+                                <div>
+                                    <h5 class="mb-1">Luna</h5>
+                                    <p class="text-accent small mb-2 fw-bold">Parvovirus</p>
+                                </div>
+                                <span class="status-due">In 19 Days</span>
+                            </div>
+                            <div class="d-flex align-items-center text-white-50 small">
+                                <i class="far fa-calendar-alt me-2"></i> Feb 20, 2025
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-5 mb-5">
+                <button class="btn btn-outline-light btn-sm rounded-pill px-4">+ Add New Appointment</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials">
+        <div class="container">
+            <div class="section-title text-center">
+                <h2>Happy <span class="text-white">Pet Parents</span></h2>
+            </div>
+            <div class="row g-4 mt-4">
+                <div class="col-md-4">
+                    <div class="feature-card">
+                        <div class="mb-3 text-warning">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                                class="fas fa-star"></i><i class="fas fa-star"></i>
+                        </div>
+                        <p class="mb-4">"PetCare has been a lifesaver. I used to forget vaccinations all the time, but
+                            the SMS alerts are impossible to miss!"</p>
+                        <div class="d-flex align-items-center">
+                            <div class="rounded-circle bg-secondary me-3" style="width: 50px; height: 50px;"></div>
+                            <div>
+                                <h6 class="mb-0">Sarah Johnson</h6>
+                                <small class="text-light">Buddy's Mom</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="feature-card">
+                        <div class="mb-3 text-warning">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                                class="fas fa-star"></i><i class="fas fa-star"></i>
+                        </div>
+                        <p class="mb-4">"The dashboard is so intuitive. Having all my cats' records in one place makes
+                            vet visits so much smoother."</p>
+                        <div class="d-flex align-items-center">
+                            <div class="rounded-circle bg-secondary me-3" style="width: 50px; height: 50px;"></div>
+                            <div>
+                                <h6 class="mb-0">Michael Chen</h6>
+                                <small class="text-light">Luna & Milo's Dad</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="feature-card">
+                        <div class="mb-3 text-warning">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                                class="fas fa-star"></i><i class="fas fa-star"></i>
+                        </div>
+                        <p class="mb-4">"I highly recommend PetCare to every pet owner. It's the most professional
+                            tracking system I've ever used."</p>
+                        <div class="d-flex align-items-center">
+                            <div class="rounded-circle bg-secondary me-3" style="width: 50px; height: 50px;"></div>
+                            <div>
+                                <h6 class="mb-0">Emily Davis</h6>
+                                <small class="text-light">Max's Mom</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- App Promotion Section -->
+    <!-- <section id="download" style="background: var(--primary-gradient);"> -->
+    <!-- <section id="download" style="background-image: linear-gradient(#4facfe,#00f2fe,#4facfe);">
+        <div class="container">
+            <div class="row align-items-center text-white">
+                <div class="col-lg-6">
+                    <h2 class="display-5 fw-bold mb-4">Manage on the Go!</h2>
+                    <p class="lead mb-5">Download our mobile app to get instant push notifications and manage your pet's
+                        health from anywhere in the world.</p>
+                    <div class="d-flex gap-3">
+                        <button class="btn btn-dark btn-lg px-4 rounded-pill"><i class="fab fa-apple me-2"></i> App
+                            Store</button>
+                        <button class="btn btn-dark btn-lg px-4 rounded-pill"><i class="fab fa-google-play me-2"></i>
+                            Play Store</button>
+                    </div>
+                </div>
+                <div class="col-lg-6 mt-5 mt-lg-0 text-center">
+                    <i class="fas fa-mobile-alt" style="font-size: 300px; opacity: 0.2;"></i>
+                </div>
+            </div>
+        </div>
+    </section> -->
+
+    <!-- Contact Section -->
+    <section id="con">
+        <div class="container">
+            <div class="section-title text-center">
+                <h2>Get In <span class="text-white">Touch</span></h2>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-md-8 mx-auto">
+                    <div class="feature-card">
+                        <form>
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label class="form-label small text-muted">Full Name</label>
+                                    <input type="text" class="form-control" placeholder="John Doe">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label small text-muted">Email Address</label>
+                                    <input type="email" class="form-control" placeholder="john@example.com">
+                                </div>
+                                <div class="col-12">
+                                    <label class="form-label small text-muted">Message</label>
+                                    <textarea class="form-control" placeholder="How can we help you and your pet?"
+                                        style="resize: none; height: 120px;"></textarea>
+                                </div>
+                                <div class="col-12 mt-4">
+                                    <button class="btn btn-premium w-100 py-3">Send Message</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-4">
+                    <a class="navbar-brand d-block mb-3" href="#">
+                        <i class="fas fa-paw me-2"></i> PetCare
+                    </a>
+                    <p class="text-white-50 small">Advanced pet health management for the modern pet parent. We care
+                        about your companions as much as you do.</p>
+                    <div class="social-links mt-4">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-2">
+                    <h6 class="fw-bold mb-4">Quick Links</h6>
+                    <ul class="list-unstyled small">
+                        <li class="mb-2"><a href="#home" class="text-white-50 text-decoration-none">Home</a></li>
+                        <li class="mb-2"><a href="#features" class="text-white-50 text-decoration-none">Features</a>
+                        </li>
+                        <li class="mb-2"><a href="#services" class="text-white-50 text-decoration-none">Services</a>
+                        </li>
+                        <li class="mb-2"><a href="#schedule" class="text-white-50 text-decoration-none">Schedule</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-lg-2">
+                    <h6 class="fw-bold mb-4">Support</h6>
+                    <ul class="list-unstyled small">
+                        <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none">Privacy Policy</a></li>
+                        <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none">Terms of Service</a>
+                        </li>
+                        <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none">Help Center</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4">
+                    <h6 class="fw-bold mb-4">Newsletter</h6>
+                    <p class="text-white-50 small mb-3">Subscribe for pet health tips and updates.</p>
+                    <div class="input-group">
+                        <input type="email" class="form-control" placeholder="Email address">
+                        <button class="btn btn-premium border-0" style="border-radius: 0 10px 10px 0;">Join</button>
+                    </div>
+                </div>
+            </div>
+            <hr class="my-5 border-white opacity-10">
+            <p class="text-center text-white-50 small mb-0">© 2025 PetCare | Designed for Healthy Companions</p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>
